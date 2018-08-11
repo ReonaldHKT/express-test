@@ -17,8 +17,8 @@ let
 
   // フォルダーの設定
   folder = {
-    source: 'public_source/',
-    build: 'public/'
+    source: './public_source/',
+    build: './public/'
   }
 ;
 
@@ -48,7 +48,7 @@ gulp.task('image-minify', function() {
     .pipe(plumber({
       errorHandler: notify.onError("Error: <%= error.message %>") //<-
     }))
-    .pipe(newer(folder.minify))
+    .pipe(newer(folder.build))
     .pipe(imagemin({ optimizationLevel: 5 }).on('error', function(e){
       console.log(e);
     }))
@@ -61,7 +61,7 @@ gulp.task('html-minify', function(){
     .pipe(plumber({
       errorHandler: notify.onError("Error: <%= error.message %>") //<-
     }))
-    .pipe(newer(folder.minify))
+    .pipe(newer(folder.build))
     .pipe(htmlclean().on('error', function(e){
       console.log(e);
     }))
@@ -74,7 +74,7 @@ gulp.task('js-minify', function(){
     .pipe(plumber({
       errorHandler: notify.onError("Error: <%= error.message %>") //<-
     }))
-    .pipe(newer(folder.minify))
+    .pipe(newer(folder.build))
     .pipe(babel())
     .pipe(uglify().on('error', function(e){
       console.log(e);
@@ -88,7 +88,7 @@ gulp.task('css-minify', function(){
     .pipe(plumber({
       errorHandler: notify.onError("Error: <%= error.message %>") //<-
     }))
-    .pipe(newer(folder.minify))
+    .pipe(newer(folder.build))
     .pipe(sass({ outputStyle: 'expanded' }))
     .pipe(autoprefixer({
       browsers: ["last 2 versions", "ie >= 11"],
@@ -122,7 +122,11 @@ gulp.task('sass', function(){
 
 
 
-
+// Herokuデプロイ用
+// gulp.task('deploy', function(){
+//   console.log('####### ALL-MINIFYが実行されました #######');
+//   runSequence('image-minify', 'html-minify', 'css-minify', 'js-minify', 'copy');
+// });
 
 // 画像, HTML, CSS, Javascriptを圧縮
 gulp.task('minify', function(){
