@@ -1,0 +1,26 @@
+:host {
+  overflow: hidden;
+  transition: var(--m-transition);
+  border-radius: var(--m-borderRadius);
+  box-shadow: 0 0 5vh 0.2vh rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+:host(:hover){
+  filter: brightness(1.1);
+  box-shadow: 0 1vh 5vh 0.2vh rgba(0, 0, 0, 0.2);
+}
+:host(:active){
+  filter: brightness(0.95);
+  // box-shadow: 0 -1vh 5vh 0.2vh rgba(0, 0, 0, 0.2);
+}
+:host([unclickable]){
+  filter: grayscale(1) contrast(0.1) brightness(1.75);
+}
+:host([disable]){
+  filter: grayscale(1) brightness(0.8);
+}
+:host([unclickable]), :host([disable]){
+  pointer-events: none;
+}
