@@ -8,6 +8,12 @@ var apiRouter = require('./routes/api');
 
 var app = express();
 
+// ヘッダー設定
+app.use(function(req, res, next){
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  next();
+});
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
