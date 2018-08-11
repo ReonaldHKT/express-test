@@ -84,7 +84,7 @@ gulp.task('js-minify', function(){
 
 // CSS圧縮タスク
 gulp.task('css-minify', function(){
-  return gulp.src(folder.source + '**/**/*.css', { base: folder.source })
+  return gulp.src([folder.source + '**/**/*.sass', folder.source + '**/**/*.scss', '!' + folder.source + '**/**/_*.*'], { base: folder.source })
     .pipe(plumber({
       errorHandler: notify.onError("Error: <%= error.message %>") //<-
     }))
