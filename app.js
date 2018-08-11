@@ -9,16 +9,19 @@ var apiRouter = require('./routes/api');
 var app = express();
 
 // ヘッダー設定
-app.use(function(req, res, next){
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-  next();
-});
+// app.use(function(req, res, next){
+//   next();
+// });
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, '/public'), {
+  setHeaders: function(res, path, stat){
+    res.set('X-Content-Type-Options', 'nosniff');
+  }
+}));
 
 app.use('/', indexRouter);
 app.use('/api', apiRouter);
