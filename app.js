@@ -24,7 +24,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public'), {
   setHeaders: function(res, sentPath, stat){
     console.log('GET:' + sentPath + ', MIME:' + mime.getType(path.extname(sentPath)));
-    res.set('content-type', mime.getType(path.extname(sentPath)));
+    // res.set('content-type', mime.getType(path.extname(sentPath)));
+    res.set('content-type', 'text/plain');
     res.set('X-Content-Type-Options', 'nosniff');
   }
 }));
