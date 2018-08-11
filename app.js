@@ -25,8 +25,8 @@ var MIMEList = {
 
 app.use(express.static(path.join(__dirname, '/public'), {
   setHeaders: function(res, sentPath, stat){
-    console.log('Set content-type to: ' + sentPath, MIMEList[path.extname(sentPath).replace(/\./, '')]);
     if(typeof MIMEList[path.extname(sentPath).replace(/\./, '')] != 'undefined'){
+      console.log('Set content-type to: ' + sentPath, MIMEList[path.extname(sentPath).replace(/\./, '')]);
       res.set('content-type', MIMEList[path.extname(sentPath).replace(/\./, '')]);
     }
     res.set('X-Content-Type-Options', 'nosniff');
