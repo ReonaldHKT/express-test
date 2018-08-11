@@ -18,9 +18,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-express.static.mime.define({'text/css': ['css']});
+// express.static.mime.define({'text/css': ['css']});
+var MIMEList = {
+  'css': 'text/css'
+}
+
 app.use(express.static(path.join(__dirname, '/public'), {
-  setHeaders: function(res, path, stat){
+  setHeaders: function(res, sentPath, stat){
+    // console.log(sentPath, path.extname(sentPath).replace(/\./, ''));
+    if(typeof MIMEList[path.extname(sentPath).replace(/\./, '')] != 'undefined'){
+      res.set('content-type', MIMEList[path.extname(sentPath).replace(/\./, '')]);
+    }
     res.set('X-Content-Type-Options', 'nosniff');
   }
 }));
