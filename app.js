@@ -18,6 +18,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+express.static.mime.define({'text/css': ['css']});
+app.use(express.static(path.join(__dirname, '/public'), {
+  setHeaders: function(res, path, stat){
+    res.set('X-Content-Type-Options', 'nosniff');
+  }
+}));
+
 app.use('/', indexRouter);
 app.use('/api', apiRouter);
 
