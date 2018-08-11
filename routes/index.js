@@ -1,9 +1,13 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-// router.get('/', function(req, res, next) {
-//   res.render('index', { title: 'Express' });
-// });
+var app = express();
+
+express.mime.type['css'] = 'text/css';
+app.use(express.static(path.join(__dirname, '/public'), {
+  setHeaders: function(res, path, stat){
+    res.set('X-Content-Type-Options', 'nosniff');
+  }
+}));
 
 module.exports = router;
